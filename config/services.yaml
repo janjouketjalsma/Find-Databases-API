@@ -37,3 +37,7 @@ services:
         arguments:
             $host: '%env(resolve:ALMA_HOST)%'
             $apiKey: '%env(resolve:ALMA_APIKEY)%'
+
+    App\Service\Alma\Set:
+        arguments:
+            $setName: '%env(resolve:ALMA_SETNAME)%'
