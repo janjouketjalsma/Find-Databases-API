@@ -1,6 +1,8 @@
 <?php
 namespace App\Service\Alma;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\ClientInterface;
 
@@ -25,10 +27,9 @@ class Client
      * @param $uri
      * @param array $params
      * @param null $entity
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return array|null
      */
-    public function request($method, $uri, $params = array(), $entity = null)
+    public function request($method, $uri, $params = array(), $entity = null): array
     {
         try {
             // Build the URI
@@ -52,10 +53,11 @@ class Client
 
             // return response
             return json_decode($response->getBody(), true);
+
         } catch (RequestException $e) {
-            $this->logger->critical('ALMAclient request exception', json_decode($e->getResponse()->getBody()), true);
-        } catch (ServerException $e) {
-            $this->logger->critical('ALMAclient server exception', json_decode($e->getResponse()->getBody()), true);
+            $this->logger->critical('ALMAclient request exception', json_decode($e->getResponse()->getBody()));
+        } catch (GuzzleException $e) {
+            $this->logger->critical('Guzzle exception', json_decode($e->getResponse()->getBody()));
         }
     }
 }
