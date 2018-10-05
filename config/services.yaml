@@ -33,7 +33,7 @@ services:
     GuzzleHttp\ClientInterface:
         class: GuzzleHttp\Client
 
-    App\Service\AlmaClient:
+    App\Service\Alma\Client:
         arguments:
             $host: '%env(resolve:ALMA_HOST)%'
             $apiKey: '%env(resolve:ALMA_APIKEY)%'

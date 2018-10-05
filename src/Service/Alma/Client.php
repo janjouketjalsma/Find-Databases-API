@@ -1,10 +1,10 @@
 <?php
-namespace App\Service;
+namespace App\Service\Alma;
 
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\ClientInterface;
 
-class AlmaClient
+class Client
 {
     private $logger;
     private $client;
@@ -26,6 +26,7 @@ class AlmaClient
      * @param array $params
      * @param null $entity
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function request($method, $uri, $params = array(), $entity = null)
     {
