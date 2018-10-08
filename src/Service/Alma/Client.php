@@ -31,6 +31,7 @@ class Client
      */
     public function request($method, $uri, $params = array(), $entity = null): array
     {
+        $this->logger->info("Alma Client request", [$uri, $params, $entity]);
         try {
             // Build the URI
             $uri = rtrim($this->host, '/').'/almaws/v1/'.ltrim($uri, '/');
