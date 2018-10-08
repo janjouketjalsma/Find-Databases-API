@@ -36,6 +36,13 @@ class ImportDatabasesCommand extends Command
         $this->setDescription('Imports databases');
     }
 
+    /**
+     * Import databases from the default Alma set
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
@@ -43,18 +50,21 @@ class ImportDatabasesCommand extends Command
         // Get members from the set (we need the Bib ids)
         $members = $this->almaSet->getMembers();
 
-        // Get bibs
-        $bibs = $this->getBibsForMembers($this->chunk($members, 100));
+        foreach($this->chunk($members, 100) as $members){
+            // Get bibs for this chunk
+            $bibs = $this->getBibsForMembers($members);
 
-        // Import bibs
-        foreach($this->databaseImporter->importFromBibs($bibs) as $importMessage){
-            $io->text($importMessage);
+            // Import bibs
+            foreach($this->databaseImporter->importFromBibs($bibs) as $importMessage){
+                $io->text($importMessage);
+            }
         }
-
         $io->success("Finished importing databases");
     }
 
     /**
+     * Get bib records for a set of members
+     *
      * @param \Traversable $members
      * @return \Generator
      */
@@ -81,9 +91,14 @@ class ImportDatabasesCommand extends Command
      * @return \Generator
      */
     protected function chunk(\Generator $generator, $n) {
-        for ($i = 0; $generator->valid() && $i < $n; $generator->next(), ++$i) {
-            yield $generator->current();
-        }
+        do{
+            yield (function($generator, $n) {
+                for ($i = 0; $generator->valid() && $i < $n; $generator->next(), ++$i) {
+                    yield $generator->current();
+                }
+            })($generator, $n);
+        } while ($generator->valid());
+
     }
 
 }
