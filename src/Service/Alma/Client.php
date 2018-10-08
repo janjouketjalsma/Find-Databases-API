@@ -55,9 +55,9 @@ class Client
             return json_decode($response->getBody(), true);
 
         } catch (RequestException $e) {
-            $this->logger->critical('ALMAclient request exception', json_decode($e->getResponse()->getBody()));
+            $this->logger->critical('ALMAclient request exception', json_decode($e->getResponse()->getBody(), true));
         } catch (GuzzleException $e) {
-            $this->logger->critical('Guzzle exception', json_decode($e->getResponse()->getBody()));
+            $this->logger->critical('Guzzle exception', json_decode($e->getMessage(), true));
         }
     }
 }

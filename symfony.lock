@@ -11,6 +11,12 @@
             "ref": "18727d8f229306860b46955f438e1897421da689"
         }
     },
+    "ck/file_marc_reference": {
+        "version": "v1.2.0"
+    },
+    "ck/php-marcspec": {
+        "version": "2.0.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -110,6 +116,12 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "pear/file_marc": {
+        "version": "1.2.0"
+    },
+    "pear/pear_exception": {
+        "version": "v1.0.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -133,6 +145,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "scriptotek/marc": {
+        "version": "v1.0.1"
     },
     "symfony/asset": {
         "version": "v4.1.5"

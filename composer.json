@@ -8,11 +8,13 @@
         "api-platform/api-pack": "^1.1",
         "doctrine/doctrine-migrations-bundle": "^1.3",
         "guzzlehttp/guzzle": "~6.0",
+        "scriptotek/marc": "^1.0",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
         "symfony/monolog-bundle": "^3.3",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "symfony/dotenv": "*",
